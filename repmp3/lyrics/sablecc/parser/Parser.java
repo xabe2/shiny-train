@@ -270,12 +270,6 @@ public class Parser
                 push(goTo(4), list, false);
             }
             break;
-            case 12: /* reduce ATiempoTag */
-            {
-                ArrayList<Object> list = new12();
-                push(goTo(5), list, false);
-            }
-            break;
         }
     }
 
@@ -500,12 +494,12 @@ public class Parser
         PLinea plineaNode1;
         {
             // Block
-        PTiempoTag ptiempotagNode2;
+        TTiempoTag ttiempotagNode2;
         TTextoLirica ttextoliricaNode3;
-        ptiempotagNode2 = (PTiempoTag)nodeArrayList1.get(0);
+        ttiempotagNode2 = (TTiempoTag)nodeArrayList1.get(0);
         ttextoliricaNode3 = (TTextoLirica)nodeArrayList2.get(0);
 
-        plineaNode1 = new AConTextoLinea(ptiempotagNode2, ttextoliricaNode3);
+        plineaNode1 = new AConTextoLinea(ttiempotagNode2, ttextoliricaNode3);
         }
 	nodeList.add(plineaNode1);
         return nodeList;
@@ -522,10 +516,10 @@ public class Parser
         PLinea plineaNode1;
         {
             // Block
-        PTiempoTag ptiempotagNode2;
-        ptiempotagNode2 = (PTiempoTag)nodeArrayList1.get(0);
+        TTiempoTag ttiempotagNode2;
+        ttiempotagNode2 = (TTiempoTag)nodeArrayList1.get(0);
 
-        plineaNode1 = new AVaciaLinea(ptiempotagNode2);
+        plineaNode1 = new AVaciaLinea(ttiempotagNode2);
         }
 	nodeList.add(plineaNode1);
         return nodeList;
@@ -533,93 +527,43 @@ public class Parser
 
 
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    ArrayList<Object> new12() /* reduce ATiempoTag */
-    {
-        @SuppressWarnings("hiding") ArrayList<Object> nodeList = new ArrayList<Object>();
-
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList7 = pop();
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList6 = pop();
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList5 = pop();
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList<Object> nodeArrayList1 = pop();
-        PTiempoTag ptiempotagNode1;
-        {
-            // Block
-        TCorcheteIzq tcorcheteizqNode2;
-        TNumero tnumeroNode3;
-        TDosPuntos tdospuntosNode4;
-        TNumero tnumeroNode5;
-        TPunto tpuntoNode6;
-        TNumero tnumeroNode7;
-        TCorcheteDer tcorchetederNode8;
-        tcorcheteizqNode2 = (TCorcheteIzq)nodeArrayList1.get(0);
-        tnumeroNode3 = (TNumero)nodeArrayList2.get(0);
-        tdospuntosNode4 = (TDosPuntos)nodeArrayList3.get(0);
-        tnumeroNode5 = (TNumero)nodeArrayList4.get(0);
-        tpuntoNode6 = (TPunto)nodeArrayList5.get(0);
-        tnumeroNode7 = (TNumero)nodeArrayList6.get(0);
-        tcorchetederNode8 = (TCorcheteDer)nodeArrayList7.get(0);
-
-        ptiempotagNode1 = new ATiempoTag(tcorcheteizqNode2, tnumeroNode3, tdospuntosNode4, tnumeroNode5, tpuntoNode6, tnumeroNode7, tcorchetederNode8);
-        }
-	nodeList.add(ptiempotagNode1);
-        return nodeList;
-    }
-
-
-
     private static int[][][] actionTable;
 /*      {
-			{{-1, ERROR, 0}, {0, SHIFT, 1}, {1, SHIFT, 2}, {2, SHIFT, 3}, {3, SHIFT, 4}, {5, SHIFT, 5}, },
+			{{-1, ERROR, 0}, {0, SHIFT, 1}, {1, SHIFT, 2}, {2, SHIFT, 3}, {3, SHIFT, 4}, {4, SHIFT, 5}, },
+			{{-1, REDUCE, 11}, {5, SHIFT, 11}, },
 			{{-1, REDUCE, 4}, },
 			{{-1, REDUCE, 5}, },
 			{{-1, REDUCE, 6}, },
 			{{-1, REDUCE, 7}, },
-			{{-1, ERROR, 5}, {9, SHIFT, 12}, },
-			{{-1, ERROR, 6}, {10, ACCEPT, -1}, },
-			{{-1, ERROR, 7}, {5, SHIFT, 5}, },
-			{{-1, REDUCE, 2}, {0, SHIFT, 1}, {1, SHIFT, 2}, {2, SHIFT, 3}, {3, SHIFT, 4}, },
+			{{-1, ERROR, 6}, {6, ACCEPT, -1}, },
+			{{-1, ERROR, 7}, {0, SHIFT, 1}, },
+			{{-1, REDUCE, 2}, {1, SHIFT, 2}, {2, SHIFT, 3}, {3, SHIFT, 4}, {4, SHIFT, 5}, },
 			{{-1, REDUCE, 1}, },
-			{{-1, REDUCE, 8}, {5, SHIFT, 5}, },
-			{{-1, REDUCE, 11}, {4, SHIFT, 16}, },
-			{{-1, ERROR, 12}, {7, SHIFT, 17}, },
+			{{-1, REDUCE, 8}, {0, SHIFT, 1}, },
+			{{-1, REDUCE, 10}, },
 			{{-1, REDUCE, 0}, },
 			{{-1, REDUCE, 3}, },
 			{{-1, REDUCE, 9}, },
-			{{-1, REDUCE, 10}, },
-			{{-1, ERROR, 17}, {9, SHIFT, 18}, },
-			{{-1, ERROR, 18}, {8, SHIFT, 19}, },
-			{{-1, ERROR, 19}, {9, SHIFT, 20}, },
-			{{-1, ERROR, 20}, {6, SHIFT, 21}, },
-			{{-1, REDUCE, 12}, },
         };*/
     private static int[][][] gotoTable;
 /*      {
 			{{-1, 6}, },
-			{{-1, 7}, {8, 14}, },
+			{{-1, 7}, {8, 13}, },
 			{{-1, 8}, },
-			{{-1, 9}, {7, 13}, {10, 15}, },
+			{{-1, 9}, {7, 12}, {10, 14}, },
 			{{-1, 10}, },
-			{{-1, 11}, },
         };*/
     private static String[] errorMessages;
 /*      {
-			"expecting: tag artista, tag titulo, tag album, tag otro, '['",
-			"expecting: numero",
+			"expecting: tiempo tag, tag artista, tag titulo, tag album, tag otro",
+			"expecting: tiempo tag, texto lirica, EOF",
 			"expecting: EOF",
-			"expecting: '['",
-			"expecting: '[', EOF",
-			"expecting: texto lirica, '[', EOF",
-			"expecting: ':'",
-			"expecting: '.'",
-			"expecting: ']'",
+			"expecting: tiempo tag",
+			"expecting: tiempo tag, EOF",
         };*/
     private static int[] errors;
 /*      {
-			0, 0, 0, 0, 0, 1, 2, 3, 0, 2, 4, 5, 6, 2, 3, 2, 4, 1, 7, 1, 8, 5, 
+			0, 1, 0, 0, 0, 0, 2, 3, 0, 2, 4, 4, 2, 3, 2, 
         };*/
 
     static 

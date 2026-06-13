@@ -7,7 +7,7 @@ import lyrics.sablecc.analysis.*;
 @SuppressWarnings("nls")
 public final class AConTextoLinea extends PLinea
 {
-    private PTiempoTag _tiempoTag_;
+    private TTiempoTag _tiempoTag_;
     private TTextoLirica _textoLirica_;
 
     public AConTextoLinea()
@@ -16,7 +16,7 @@ public final class AConTextoLinea extends PLinea
     }
 
     public AConTextoLinea(
-        @SuppressWarnings("hiding") PTiempoTag _tiempoTag_,
+        @SuppressWarnings("hiding") TTiempoTag _tiempoTag_,
         @SuppressWarnings("hiding") TTextoLirica _textoLirica_)
     {
         // Constructor
@@ -40,12 +40,12 @@ public final class AConTextoLinea extends PLinea
         ((Analysis) sw).caseAConTextoLinea(this);
     }
 
-    public PTiempoTag getTiempoTag()
+    public TTiempoTag getTiempoTag()
     {
         return this._tiempoTag_;
     }
 
-    public void setTiempoTag(PTiempoTag node)
+    public void setTiempoTag(TTiempoTag node)
     {
         if(this._tiempoTag_ != null)
         {
@@ -123,7 +123,7 @@ public final class AConTextoLinea extends PLinea
         // Replace child
         if(this._tiempoTag_ == oldChild)
         {
-            setTiempoTag((PTiempoTag) newChild);
+            setTiempoTag((TTiempoTag) newChild);
             return;
         }
 

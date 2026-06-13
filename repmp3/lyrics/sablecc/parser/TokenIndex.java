@@ -10,68 +10,44 @@ class TokenIndex extends AnalysisAdapter
     int index;
 
     @Override
-    public void caseTTagArtista(@SuppressWarnings("unused") TTagArtista node)
+    public void caseTTiempoTag(@SuppressWarnings("unused") TTiempoTag node)
     {
         this.index = 0;
     }
 
     @Override
-    public void caseTTagTitulo(@SuppressWarnings("unused") TTagTitulo node)
+    public void caseTTagArtista(@SuppressWarnings("unused") TTagArtista node)
     {
         this.index = 1;
     }
 
     @Override
-    public void caseTTagAlbum(@SuppressWarnings("unused") TTagAlbum node)
+    public void caseTTagTitulo(@SuppressWarnings("unused") TTagTitulo node)
     {
         this.index = 2;
     }
 
     @Override
-    public void caseTTagOtro(@SuppressWarnings("unused") TTagOtro node)
+    public void caseTTagAlbum(@SuppressWarnings("unused") TTagAlbum node)
     {
         this.index = 3;
     }
 
     @Override
-    public void caseTTextoLirica(@SuppressWarnings("unused") TTextoLirica node)
+    public void caseTTagOtro(@SuppressWarnings("unused") TTagOtro node)
     {
         this.index = 4;
     }
 
     @Override
-    public void caseTCorcheteIzq(@SuppressWarnings("unused") TCorcheteIzq node)
+    public void caseTTextoLirica(@SuppressWarnings("unused") TTextoLirica node)
     {
         this.index = 5;
     }
 
     @Override
-    public void caseTCorcheteDer(@SuppressWarnings("unused") TCorcheteDer node)
-    {
-        this.index = 6;
-    }
-
-    @Override
-    public void caseTDosPuntos(@SuppressWarnings("unused") TDosPuntos node)
-    {
-        this.index = 7;
-    }
-
-    @Override
-    public void caseTPunto(@SuppressWarnings("unused") TPunto node)
-    {
-        this.index = 8;
-    }
-
-    @Override
-    public void caseTNumero(@SuppressWarnings("unused") TNumero node)
-    {
-        this.index = 9;
-    }
-
-    @Override
     public void caseEOF(@SuppressWarnings("unused") EOF node)
     {
-        this.index = 10;
+        this.index = 6;
     }
 }

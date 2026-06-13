@@ -303,49 +303,4 @@ public class DepthFirstAdapter extends AnalysisAdapter
         }
         outAVaciaLinea(node);
     }
-
-    public void inATiempoTag(ATiempoTag node)
-    {
-        defaultIn(node);
-    }
-
-    public void outATiempoTag(ATiempoTag node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseATiempoTag(ATiempoTag node)
-    {
-        inATiempoTag(node);
-        if(node.getCorcheteIzq() != null)
-        {
-            node.getCorcheteIzq().apply(this);
-        }
-        if(node.getMinutos() != null)
-        {
-            node.getMinutos().apply(this);
-        }
-        if(node.getDosPuntos() != null)
-        {
-            node.getDosPuntos().apply(this);
-        }
-        if(node.getSegundos() != null)
-        {
-            node.getSegundos().apply(this);
-        }
-        if(node.getPunto() != null)
-        {
-            node.getPunto().apply(this);
-        }
-        if(node.getCentesimas() != null)
-        {
-            node.getCentesimas().apply(this);
-        }
-        if(node.getCorcheteDer() != null)
-        {
-            node.getCorcheteDer().apply(this);
-        }
-        outATiempoTag(node);
-    }
 }

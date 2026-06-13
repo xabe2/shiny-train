@@ -24,20 +24,15 @@ public interface Analysis extends Switch
     void caseAVariasLineas(AVariasLineas node);
     void caseAConTextoLinea(AConTextoLinea node);
     void caseAVaciaLinea(AVaciaLinea node);
-    void caseATiempoTag(ATiempoTag node);
 
     void caseTBlanco(TBlanco node);
     void caseTFdlin(TFdlin node);
+    void caseTTiempoTag(TTiempoTag node);
     void caseTTagArtista(TTagArtista node);
     void caseTTagTitulo(TTagTitulo node);
     void caseTTagAlbum(TTagAlbum node);
     void caseTTagOtro(TTagOtro node);
     void caseTTextoLirica(TTextoLirica node);
-    void caseTCorcheteIzq(TCorcheteIzq node);
-    void caseTCorcheteDer(TCorcheteDer node);
-    void caseTDosPuntos(TDosPuntos node);
-    void caseTPunto(TPunto node);
-    void caseTNumero(TNumero node);
     void caseEOF(EOF node);
     void caseInvalidToken(InvalidToken node);
 }

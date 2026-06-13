@@ -7,7 +7,7 @@ import lyrics.sablecc.analysis.*;
 @SuppressWarnings("nls")
 public final class AVaciaLinea extends PLinea
 {
-    private PTiempoTag _tiempoTag_;
+    private TTiempoTag _tiempoTag_;
 
     public AVaciaLinea()
     {
@@ -15,7 +15,7 @@ public final class AVaciaLinea extends PLinea
     }
 
     public AVaciaLinea(
-        @SuppressWarnings("hiding") PTiempoTag _tiempoTag_)
+        @SuppressWarnings("hiding") TTiempoTag _tiempoTag_)
     {
         // Constructor
         setTiempoTag(_tiempoTag_);
@@ -35,12 +35,12 @@ public final class AVaciaLinea extends PLinea
         ((Analysis) sw).caseAVaciaLinea(this);
     }
 
-    public PTiempoTag getTiempoTag()
+    public TTiempoTag getTiempoTag()
     {
         return this._tiempoTag_;
     }
 
-    public void setTiempoTag(PTiempoTag node)
+    public void setTiempoTag(TTiempoTag node)
     {
         if(this._tiempoTag_ != null)
         {
@@ -86,7 +86,7 @@ public final class AVaciaLinea extends PLinea
         // Replace child
         if(this._tiempoTag_ == oldChild)
         {
-            setTiempoTag((PTiempoTag) newChild);
+            setTiempoTag((TTiempoTag) newChild);
             return;
         }
 

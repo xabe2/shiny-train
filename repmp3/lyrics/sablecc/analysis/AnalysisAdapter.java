@@ -147,12 +147,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseATiempoTag(ATiempoTag node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseTBlanco(TBlanco node)
     {
         defaultCase(node);
@@ -160,6 +154,12 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTFdlin(TFdlin node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTTiempoTag(TTiempoTag node)
     {
         defaultCase(node);
     }
@@ -190,36 +190,6 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTTextoLirica(TTextoLirica node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTCorcheteIzq(TCorcheteIzq node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTCorcheteDer(TCorcheteDer node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTDosPuntos(TDosPuntos node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTPunto(TPunto node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseTNumero(TNumero node)
     {
         defaultCase(node);
     }
