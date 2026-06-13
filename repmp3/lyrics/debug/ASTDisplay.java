@@ -2,7 +2,7 @@
  * NOTES
  * AST Walker which creates graphical tree
  */
-package lyrics;
+package lyrics.debug;
 
 import java.util.*;
 import java.awt.event.*;

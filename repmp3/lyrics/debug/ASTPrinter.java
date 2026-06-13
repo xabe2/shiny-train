@@ -1,5 +1,5 @@
 /* -*- jde -*- ASTPrinter.java.in */
-package lyrics;
+package lyrics.debug;
 
 import java.util.*;
 import lyrics.sablecc.analysis.*;

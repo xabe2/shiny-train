@@ -1,11 +1,10 @@
-package lyrics;
+package lyrics.manejadorLiricaMp3;
 import lyrics.sablecc.analysis.*;
 import lyrics.sablecc.node.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Traductor extends DepthFirstAdapter {
+public class DirectorGramatica extends DepthFirstAdapter {
 
     private ArrayList<ArchLirica> bibliotecaLiricas = new ArrayList<>();
 
