@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/basicplayer3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/vorbisspi1.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/jspeex0.9.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/commons-logging-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/substance.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/jogg-0.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/kj_dsp1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/jl1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/jorbis-0.0.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/mp3spi1.9.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/jflac-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/jml-1.0b4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/tritonus_share.jar!/" />
+      <root url="jar://$PROJECT_DIR$/repmp3/libs/jmactritonusspi1.74.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -2,6 +2,7 @@ package lyrics;
 
 import javazoom.jlgui.basicplayer.BasicPlayer;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +45,19 @@ public class Reproductor {
 
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
+        }
+    }
+
+    public void programarLiricas(ArrayList<ArchLirica> biblioteca) {
+        Timer temporizador = new Timer();
+
+        for (ArchLirica x : biblioteca) {
+            temporizador.schedule(new TimerTask() {
+                @Override
+                public void run(){
+                    System.out.println(x.getTexto());
+                }
+            }, x.getTiempoMilisegundo());
         }
     }
 
