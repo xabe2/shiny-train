@@ -97,7 +97,7 @@
           <scrollpane id="6c538">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="-1" height="150"/>
+                <preferred-size width="-1" height="180"/>
               </grid>
             </constraints>
             <properties>
@@ -111,6 +111,7 @@
                 <properties>
                   <background color="-1118482"/>
                   <editable value="false"/>
+                  <font name="Arial" size="12" style="1"/>
                   <lineWrap value="true"/>
                   <wrapStyleWord value="true"/>
                 </properties>
@@ -178,7 +179,9 @@
             <children>
               <component id="117cb" class="javax.swing.JTextPane" binding="LiricasTextPane">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <font name="Arial" size="14" style="1"/>
+                </properties>
               </component>
             </children>
           </scrollpane>

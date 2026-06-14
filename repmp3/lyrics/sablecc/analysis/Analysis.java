@@ -33,6 +33,7 @@ public interface Analysis extends Switch
     void caseTTagAlbum(TTagAlbum node);
     void caseTTagOtro(TTagOtro node);
     void caseTTextoLirica(TTextoLirica node);
+    void caseTMarcaBom(TMarcaBom node);
     void caseEOF(EOF node);
     void caseInvalidToken(InvalidToken node);
 }
