@@ -162,7 +162,9 @@ public class VentanaPrincipal extends JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error interno en E/S!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (LexerException e) {
-            JOptionPane.showMessageDialog(this, "Error interno en Lexer!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error interno en Lexer!\n" +
+                    "Verifique que el archivo .irc este correctamente formateado!\n" +
+                    "Cualquier error de formato arrojará este error\n\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error desconocido!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
