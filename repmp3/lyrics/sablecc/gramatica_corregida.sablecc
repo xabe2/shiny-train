@@ -5,7 +5,7 @@ Helpers
     letra               = [['a' .. 'z'] + ['A' .. 'Z']];
     espacio             = ' ';
     bom                 = 65279; // ESTO ES PORQUE ARCHIVOS CODIFICADOS COMO UTF8 BOM FALLAN!
-    simbolos            = [0..0xffff]; // MODIFICADO: Representa TODO el espectro Unicode (osea que incluye ñ tildes caracteres japoneses y otros)
+    simbolos            = [0..0xffff]; // MODIFICADO: Representa TODO el espectro de simbolos Unicode (osea que incluye ñ tildes caracteres japoneses y otros)
     cambio_linea        = 13; // Esta en ascii y simboliza \r
     alimentador_linea   = 10;
     text_char           = [[simbolos - ']'] - [cambio_linea + alimentador_linea]];
