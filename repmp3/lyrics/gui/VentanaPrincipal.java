@@ -35,6 +35,7 @@ public class VentanaPrincipal extends JFrame {
     private JPanel BotonesAcciones;
     private JTextArea textoMetadatos;
     private JTextPane LiricasTextPane;
+    private JButton creditosButton;
     private File archMP3 = null;
     private File archLRC = null;
     private Reproductor mp3 = new Reproductor();
@@ -101,9 +102,30 @@ public class VentanaPrincipal extends JFrame {
                 detenerReproduccion();
             }
         });
+        creditosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                creditos();
+            }
+        });
+    }
+
+    private void creditos() {
+        JOptionPane.showMessageDialog(this, """
+                Código creado por:
+                Ariel Bobadilla
+                Felipe Silva
+                Benjamin Bravo
+                Se utilizó IA para preguntas puntuales y apoyo en bugs.\
+                 El presente trabajo no posee código generado directamente por IA
+                """, "Creditos", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void cargarMP3() {
+        if (archMP3 != null) {
+            detenerReproduccion();
+        }
+
         JFileChooser ventanaEleccionMP3 = new JFileChooser(System.getProperty("user.home"));
         ventanaEleccionMP3.setDialogTitle("Selecciona el archivo de audio (.mp3)");
         FileNameExtensionFilter filtroMP3 = new FileNameExtensionFilter("Archivos de audio", "mp3");
@@ -117,6 +139,10 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void cargarLRC() {
+        if (archLRC != null) {
+            detenerReproduccion();
+        }
+
         JFileChooser ventanaEleccionLRC = new JFileChooser(System.getProperty("user.home"));
         ventanaEleccionLRC.setDialogTitle("Selecciona el archivo de Letras (.lrc)");
         FileNameExtensionFilter filtroLRC = new FileNameExtensionFilter("Archivos .LRC", "lrc");
@@ -130,21 +156,27 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void reproducirPistas() {
-        if (archLRC == null || archMP3 == null) {
-            JOptionPane.showMessageDialog(this, "Archivos ingresados no existe!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!archLRC.getName().toLowerCase().contains(".lrc") || !archMP3.getName().toLowerCase().contains(".mp3")) {
-            JOptionPane.showMessageDialog(this, "Archivos ingresados no soportados!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
 
         try {
+            if (archLRC == null || archMP3 == null) {
+                JOptionPane.showMessageDialog(this, "Archivos ingresados no existe!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!archLRC.getName().toLowerCase().contains(".lrc") || !archMP3.getName().toLowerCase().contains(".mp3")) {
+                JOptionPane.showMessageDialog(this, "Archivos ingresados no soportados!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            System.out.println("DEBUG ***");
+
             detenerReproduccion();
             LiricasTextPane.setText("   ");
 
             Parser p = new Parser(new Lexer(new PushbackReader(new BufferedReader(new InputStreamReader(new FileInputStream(archLRC), StandardCharsets.UTF_8)))));
             Start tree = p.parse();
+
+            System.out.println("DEBUG ***");
 
             DirectorGramatica director = new DirectorGramatica();
             tree.apply(director);
@@ -156,7 +188,7 @@ public class VentanaPrincipal extends JFrame {
             programarLetras(director.getBibliotecaLiricas());
             mp3.Play();
 
-        } catch (FileNotFoundException e1) {
+        } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(this, "El archivo no se ha encontrado!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (ParserException e) {
             JOptionPane.showMessageDialog(this, "Error interno en Parser!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -194,6 +226,7 @@ public class VentanaPrincipal extends JFrame {
                 timerPrincipal.cancel();
             }
             LiricasTextPane.setText("Reproducción detenida");
+
         } catch (Exception ex) {
             System.out.println("Error al detener: " + ex.getMessage());
         }
