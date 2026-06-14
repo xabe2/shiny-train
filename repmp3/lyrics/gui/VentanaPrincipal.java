@@ -8,6 +8,8 @@ import lyrics.sablecc.node.Start;
 import lyrics.sablecc.parser.Parser;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
@@ -17,6 +19,9 @@ import java.io.PushbackReader;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class VentanaPrincipal extends JDialog {
     private JPanel contentPane;
@@ -26,12 +31,12 @@ public class VentanaPrincipal extends JDialog {
     private JButton cargarMp3Button;
     private JTextField rutaLRC;
     private JTextField rutaMP3;
-    private JLabel cuadroLetras;
     private JButton stopButton;
     private JPanel cargaArchivo;
     private JPanel Metadatos;
     private JPanel BotonesAcciones;
     private JTextArea textoMetadatos;
+    private JTextPane LiricasTextPane;
     private File archMP3 = null;
     private File archLRC = null;
     private Reproductor mp3 = new Reproductor();
@@ -42,10 +47,15 @@ public class VentanaPrincipal extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(playButton);
-        cuadroLetras.setBackground(new Color(255, 255, 255));
-        cuadroLetras.setText("Aquí se verán las liricas");
-
+        LiricasTextPane.setText("Aquí se verán las liricas");
         textoMetadatos.setText("Aquí se verán los metadatos");
+
+        LiricasTextPane.setEditable(false);
+        LiricasTextPane.setOpaque(false);
+        StyledDocument doc = LiricasTextPane.getStyledDocument();
+        SimpleAttributeSet centro = new SimpleAttributeSet();
+        StyleConstants.setAlignment(centro, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0, doc.getLength(), centro, false);
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -100,9 +110,13 @@ public class VentanaPrincipal extends JDialog {
     }
 
     private void cargarMP3() {
-        JFileChooser ventanaEleccionMP3 =  new JFileChooser();
-
+        JFileChooser ventanaEleccionMP3 =  new JFileChooser(System.getProperty("user.home"));
         ventanaEleccionMP3.setDialogTitle("Selecciona el archivo de audio (.mp3)");
+
+        FileNameExtensionFilter filtroMP3 = new FileNameExtensionFilter("Archivos de audio", "mp3");
+        ventanaEleccionMP3.setFileFilter(filtroMP3);
+        ventanaEleccionMP3.setAcceptAllFileFilterUsed(false);
+
         if (ventanaEleccionMP3.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
         archMP3 = ventanaEleccionMP3.getSelectedFile();
 
@@ -110,9 +124,13 @@ public class VentanaPrincipal extends JDialog {
     }
 
     private void cargarLRC(){
-        JFileChooser ventanaEleccionLRC =  new JFileChooser();
-
+        JFileChooser ventanaEleccionLRC =  new JFileChooser(System.getProperty("user.home"));
         ventanaEleccionLRC.setDialogTitle("Selecciona el archivo de Letras (.lrc)");
+
+        FileNameExtensionFilter filtroLRC = new FileNameExtensionFilter("Archivos .LRC", "lrc");
+        ventanaEleccionLRC.setFileFilter(filtroLRC);
+        ventanaEleccionLRC.setAcceptAllFileFilterUsed(false);
+
         if (ventanaEleccionLRC.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
         archLRC = ventanaEleccionLRC.getSelectedFile();
 
@@ -133,7 +151,7 @@ public class VentanaPrincipal extends JDialog {
         try{
             detenerReproduccion();
 
-            cuadroLetras.setText("   ");
+            LiricasTextPane.setText("   ");
 
             Parser p = new Parser(new Lexer(new PushbackReader(new BufferedReader(new FileReader(archLRC)))));
             Start tree = p.parse();
@@ -172,7 +190,7 @@ public class VentanaPrincipal extends JDialog {
             timerPrincipal.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    SwingUtilities.invokeLater(() -> cuadroLetras.setText(item.getTexto()));
+                    SwingUtilities.invokeLater(() -> LiricasTextPane.setText(item.getTexto()));
                 }
             }, item.getTiempoMilisegundo());
         }
@@ -186,7 +204,7 @@ public class VentanaPrincipal extends JDialog {
             if (timerPrincipal != null) {
                 timerPrincipal.cancel();
             }
-            cuadroLetras.setText("Reproducción detenida");
+            LiricasTextPane.setText("Reproducción detenida");
         } catch (Exception ex) {
             System.out.println("Error al detener: " + ex.getMessage());
         }

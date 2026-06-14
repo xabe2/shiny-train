@@ -1,9 +1,8 @@
 import lyrics.gui.VentanaPrincipal;
 
-public class MainLoader {
-    static void main() {
-        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
-        ventanaPrincipal.setSize(500,600);
-        ventanaPrincipal.setVisible(true);
-    }
+void main() {
+    VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+    ventanaPrincipal.setResizable(false);
+    ventanaPrincipal.setSize(500, 500);
+    ventanaPrincipal.setVisible(true);
 }
