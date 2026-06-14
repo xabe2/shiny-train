@@ -7,18 +7,38 @@ import java.util.ArrayList;
 public class DirectorGramatica extends DepthFirstAdapter {
 
     private ArrayList<ArchLirica> bibliotecaLiricas = new ArrayList<>();
+    private ArrayList<String> otrosMetadatos = new ArrayList<>();
+    private String artista = "Desconocido";
+    private String titulo =  "Desconocido";
+    private String album = "Desconocido";
 
-    public void outAOtroMetaTag(AOtroMetaTag node){
-        System.out.println(node.toString());
+    @Override
+    public void inAArMetaTag(AArMetaTag node) {
+        String artista_crudo = node.getTagArtista().getText();
+        artista = artista_crudo.substring(4, artista_crudo.length() - 1).trim();
     }
 
-    public void outAVaciaLinea(AVaciaLinea node){
-        System.out.println(node.toString());
+    @Override
+    public void inATiMetaTag(ATiMetaTag node) {
+        String titulo_crudo = node.getTagTitulo().getText();
+        titulo = titulo_crudo.substring(4, titulo_crudo.length() - 1).trim();
     }
 
-//   public void outAConTextoLinea(AConTextoLinea node){
-//        System.out.println(node.toString());
-//    }
+    // Extraer Álbum
+    @Override
+    public void inAAlMetaTag(AAlMetaTag node) {
+        String album_crudo = node.getTagAlbum().getText();
+        album = album_crudo.substring(4, album_crudo.length() - 1).trim();
+    }
+
+    @Override
+    public void inAOtroMetaTag(AOtroMetaTag node) {
+        //todo Estaba pensando... en atraparlos en un arraylist y solo leerlos usando un foreach en un Jtextpane plano!
+
+        String tagCrudo = node.getTagOtro().getText();
+        String tagLimpio = tagCrudo.substring(1, tagCrudo.length() - 1).trim();
+        otrosMetadatos.add(tagLimpio);
+    }
 
     @Override
     public void inAConTextoLinea(AConTextoLinea node) {
@@ -39,5 +59,21 @@ public class DirectorGramatica extends DepthFirstAdapter {
 
     public ArrayList<ArchLirica> getBibliotecaLiricas() {
         return bibliotecaLiricas;
+    }
+
+    public ArrayList<String> getOtrosMetadatos() {
+        return otrosMetadatos;
+    }
+
+    public String getArtista() {
+        return artista;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getAlbum() {
+        return album;
     }
 }
