@@ -1,0 +1,50 @@
+Package lyrics.sablecc;
+
+Helpers
+    digito              = ['0' .. '9'];
+    letra               = [['a' .. 'z'] + ['A' .. 'Z']];
+    espacio             = ' ';
+    bom                 = 65279; // ESTO ES PORQUE ARCHIVOS CODIFICADOS COMO UTF8 BOM FALLAN!
+    simbolos            = [0..127]; // Representa CUALQUIER caracter, incluye simbolos
+    cambio_linea        = 13; // Esta en ascii y simboliza \r
+    alimentador_linea   = 10;
+    text_char           = [[simbolos - ']'] - [cambio_linea + alimentador_linea]];
+    line_char           = [simbolos - [['[' + ']'] + [cambio_linea + alimentador_linea]]];
+	
+Tokens
+    blanco          = ' '+;
+    fdlin           = (cambio_linea alimentador_linea) | cambio_linea | alimentador_linea; // Fin De Linea
+    tiempo_tag      = '[' digito digito ':' digito digito '.' digito digito ']';
+    tag_artista     = '[ar:' text_char* ']';
+    tag_titulo      = '[ti:' text_char* ']';
+    tag_album       = '[al:' text_char* ']';
+    tag_otro        = '[' letra+ ':' text_char* ']';
+    texto_lirica    = line_char+;
+    marca_bom       = bom;
+	
+Ignored Tokens
+    blanco, fdlin, marca_bom;
+	
+Productions
+ 
+    archivo =
+        {con_meta}  metadata lineas      |
+        {sin_meta}  lineas               ;
+
+    metadata =
+        {uno}    meta_tag                |
+        {varios} meta_tag metadata       ;
+
+    meta_tag =
+        {ar}        tag_artista          |
+        {ti}        tag_titulo           |
+        {al}        tag_album            |
+        {otro}      tag_otro             ;
+
+    lineas =
+        {una}    linea                   |
+        {varias} linea lineas            ;
+
+    linea =
+        {con_texto}  tiempo_tag texto_lirica   |
+        {vacia}      tiempo_tag                ;

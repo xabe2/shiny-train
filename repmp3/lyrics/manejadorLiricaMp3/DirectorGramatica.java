@@ -12,6 +12,9 @@ public class DirectorGramatica extends DepthFirstAdapter {
     private String titulo =  "Desconocido";
     private String album = "Desconocido";
 
+    private final long LATENCIA_LIRICAS = 600L; //LAS LIRICAS APARECEN CON UN DESFASE, HAY QUE IR PROBANDO MANUAL ESTE VALOR,
+    // SOLO MODIFICAR SI SABES QUE PONERLE!
+
     @Override
     public void inAArMetaTag(AArMetaTag node) {
         String artista_crudo = node.getTagArtista().getText();
@@ -33,7 +36,7 @@ public class DirectorGramatica extends DepthFirstAdapter {
 
     @Override
     public void inAOtroMetaTag(AOtroMetaTag node) {
-        //todo Estaba pensando... en atraparlos en un arraylist y solo leerlos usando un foreach en un Jtextpane plano!
+        //todo Estaba pensando... en atraparlos en un arraylist y solo leerlos usando un foreach en un Jtextpane plano!. PROBAR DESPUES!
 
         String tagCrudo = node.getTagOtro().getText();
         String tagLimpio = tagCrudo.substring(1, tagCrudo.length() - 1).trim();
@@ -52,9 +55,11 @@ public class DirectorGramatica extends DepthFirstAdapter {
 
         long totalMilisegundos = (minutos * 60000L) + (segundos * 1000L) + (centesimas * 10L);
 
-        System.out.println("Milisegundos: " + totalMilisegundos);
+        //System.out.println("Milisegundos: " + totalMilisegundos);
 
-        bibliotecaLiricas.add(new ArchLirica(totalMilisegundos,letra.trim()));
+        long tiempoCorregido = Math.max(0, totalMilisegundos + LATENCIA_LIRICAS); // POR SI AL RESTAR, EL TIEMPO QUEDA NEGATIVO!
+        //System.out.println("Milisegundos originales: " + totalMilisegundos + "; Corregidos: " + tiempoCorregido);
+        bibliotecaLiricas.add(new ArchLirica(tiempoCorregido,letra.trim()));
     }
 
     public ArrayList<ArchLirica> getBibliotecaLiricas() {

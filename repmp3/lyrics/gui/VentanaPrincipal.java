@@ -23,7 +23,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-public class VentanaPrincipal extends JDialog {
+public class VentanaPrincipal extends JFrame {
     private JPanel contentPane;
     private JButton playButton;
     private JButton buttonCancel;
@@ -42,10 +42,11 @@ public class VentanaPrincipal extends JDialog {
     private Reproductor mp3 = new Reproductor();
     private Timer timerPrincipal;
 
+    private final int ES_DEBUG = 0;
+
     public VentanaPrincipal() {
 
         setContentPane(contentPane);
-        setModal(true);
         getRootPane().setDefaultButton(playButton);
         LiricasTextPane.setText("Aquí se verán las liricas");
         textoMetadatos.setText("Aquí se verán los metadatos");
@@ -139,6 +140,11 @@ public class VentanaPrincipal extends JDialog {
 
     private void reproducirPistas() {
 
+        if(ES_DEBUG == 1){
+            archLRC = new File("C:\\Users\\Workstation\\Desktop\\Tarea 2 Fundamentos CS\\Vampyx - Kiss me.lrc");
+            archMP3 = new File("C:\\Users\\Workstation\\Desktop\\Tarea 2 Fundamentos CS\\Vampyx - Kiss me.mp3");
+        }
+
         if (archLRC == null || archMP3 == null){
             JOptionPane.showMessageDialog(this,"Archivos ingresados no existe!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -231,8 +237,16 @@ public class VentanaPrincipal extends JDialog {
 
     public static void main(String[] args) {
         VentanaPrincipal dialog = new VentanaPrincipal();
-        dialog.pack();
+
+
+        dialog.setTitle("Tarea 2 Fundamentos CS - MP3 con líricas");
+
+
+        dialog.setSize(500, 550);
+        dialog.setResizable(false);
+
+
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
-        System.exit(0);
     }
 }

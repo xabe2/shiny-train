@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="shiny-train:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/shiny_train_jar</output-path>
+    <root id="archive" name="shiny-train.jar">
+      <element id="module-output" name="shiny-train" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/basicplayer3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/vorbisspi1.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/jspeex0.9.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/commons-logging-api.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/substance.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/jogg-0.0.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/kj_dsp1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/jl1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/jorbis-0.0.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/mp3spi1.9.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/jflac-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/jml-1.0b4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/tritonus_share.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/repmp3/libs/jmactritonusspi1.74.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
