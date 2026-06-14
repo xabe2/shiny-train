@@ -4,8 +4,10 @@ import lyrics.manejadorLiricaMp3.ArchLirica;
 import lyrics.manejadorLiricaMp3.DirectorGramatica;
 import lyrics.manejadorLiricaMp3.Reproductor;
 import lyrics.sablecc.lexer.Lexer;
+import lyrics.sablecc.lexer.LexerException;
 import lyrics.sablecc.node.Start;
 import lyrics.sablecc.parser.Parser;
+import lyrics.sablecc.parser.ParserException;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -13,10 +15,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PushbackReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,15 +39,18 @@ public class VentanaPrincipal extends JFrame {
     private Reproductor mp3 = new Reproductor();
     private Timer timerPrincipal;
 
-    private final int ES_DEBUG = 0;
-
     public VentanaPrincipal() {
 
         setContentPane(contentPane);
         getRootPane().setDefaultButton(playButton);
+
+        setTitle("Tarea 2 Fundamentos CS - MP3 con líricas");
+        setSize(500, 550);
+        setResizable(false);
+        setLocationRelativeTo(null);
+
         LiricasTextPane.setText("Aquí se verán las liricas");
         textoMetadatos.setText("Aquí se verán los metadatos");
-
         LiricasTextPane.setEditable(false);
         LiricasTextPane.setOpaque(false);
         StyledDocument doc = LiricasTextPane.getStyledDocument();
@@ -103,38 +105,30 @@ public class VentanaPrincipal extends JFrame {
     private void cargarMP3() {
         JFileChooser ventanaEleccionMP3 = new JFileChooser(System.getProperty("user.home"));
         ventanaEleccionMP3.setDialogTitle("Selecciona el archivo de audio (.mp3)");
-
         FileNameExtensionFilter filtroMP3 = new FileNameExtensionFilter("Archivos de audio", "mp3");
         ventanaEleccionMP3.setFileFilter(filtroMP3);
         ventanaEleccionMP3.setAcceptAllFileFilterUsed(false);
 
         if (ventanaEleccionMP3.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
-        archMP3 = ventanaEleccionMP3.getSelectedFile();
 
+        archMP3 = ventanaEleccionMP3.getSelectedFile();
         rutaMP3.setText(archMP3.getAbsolutePath());
     }
 
     private void cargarLRC() {
         JFileChooser ventanaEleccionLRC = new JFileChooser(System.getProperty("user.home"));
         ventanaEleccionLRC.setDialogTitle("Selecciona el archivo de Letras (.lrc)");
-
         FileNameExtensionFilter filtroLRC = new FileNameExtensionFilter("Archivos .LRC", "lrc");
         ventanaEleccionLRC.setFileFilter(filtroLRC);
         ventanaEleccionLRC.setAcceptAllFileFilterUsed(false);
 
         if (ventanaEleccionLRC.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
-        archLRC = ventanaEleccionLRC.getSelectedFile();
 
+        archLRC = ventanaEleccionLRC.getSelectedFile();
         rutaLRC.setText(archLRC.getAbsolutePath());
     }
 
     private void reproducirPistas() {
-
-        if (ES_DEBUG == 1) {
-            archLRC = new File("C:\\Users\\Workstation\\Desktop\\Tarea 2 Fundamentos CS\\Vampyx - Kiss me.lrc");
-            archMP3 = new File("C:\\Users\\Workstation\\Desktop\\Tarea 2 Fundamentos CS\\Vampyx - Kiss me.mp3");
-        }
-
         if (archLRC == null || archMP3 == null) {
             JOptionPane.showMessageDialog(this, "Archivos ingresados no existe!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -146,7 +140,6 @@ public class VentanaPrincipal extends JFrame {
 
         try {
             detenerReproduccion();
-
             LiricasTextPane.setText("   ");
 
             Parser p = new Parser(new Lexer(new PushbackReader(new BufferedReader(new FileReader(archLRC)))));
@@ -155,27 +148,23 @@ public class VentanaPrincipal extends JFrame {
             DirectorGramatica director = new DirectorGramatica();
             tree.apply(director);
 
-            StringBuilder infoMetadatos = new StringBuilder();
+            String metadatosListos = armarMetadatos(director.getArtista(), director.getTitulo(), director.getAlbum(), director.getOtrosMetadatos());
+            textoMetadatos.setText(metadatosListos);
 
-            infoMetadatos.append("Título: ").append(director.getTitulo()).append("\n");
-            infoMetadatos.append("Artista: ").append(director.getArtista()).append("\n");
-            infoMetadatos.append("Álbum: ").append(director.getAlbum()).append("\n");
-
-            if (!director.getOtrosMetadatos().isEmpty()) {
-                infoMetadatos.append("\n--- Información Adicional ---\n");
-                for (String metaExtra : director.getOtrosMetadatos()) {
-                    infoMetadatos.append(metaExtra).append("\n");
-                }
-            }
-
-            textoMetadatos.setText(infoMetadatos.toString());
             mp3.AbrirFichero(archMP3.getAbsolutePath());
             programarLetras(director.getBibliotecaLiricas());
-
             mp3.Play();
 
+        } catch (FileNotFoundException e1) {
+            JOptionPane.showMessageDialog(this, "El archivo no se ha encontrado!", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ParserException e) {
+            JOptionPane.showMessageDialog(this, "Error interno en Parser!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error interno en E/S!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (LexerException e) {
+            JOptionPane.showMessageDialog(this, "Error interno en Lexer!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error desconocido!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -211,13 +200,25 @@ public class VentanaPrincipal extends JFrame {
         dispose();
     }
 
-    // CLASE VentanaPrincipal
-    public static void main(String[] args) {
-        VentanaPrincipal dialog = new VentanaPrincipal();
-        dialog.setTitle("Tarea 2 Fundamentos CS - MP3 con líricas");
-        dialog.setSize(500, 550);
-        dialog.setResizable(false);
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
+    // Funciones auxiliares
+
+    private String armarMetadatos(String artista, String titulo, String album, ArrayList<String> otros) {
+        StringBuilder texto = new StringBuilder();
+
+        texto.append("Título: ").append(titulo).append("\n");
+        texto.append("Artista: ").append(artista).append("\n");
+        texto.append("Álbum: ").append(album).append("\n");
+
+        texto.append("\n...:: Información Adicional ::...\n");
+
+        if (otros.isEmpty()) {
+            texto.append("No hay metadatos adicionales!");
+        } else {
+            for (String x : otros) {
+                texto.append(x).append("\n");
+            }
+        }
+
+        return texto.toString();
     }
 }

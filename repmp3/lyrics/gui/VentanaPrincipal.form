@@ -68,6 +68,7 @@
                 </constraints>
                 <properties>
                   <editable value="false"/>
+                  <font swing-font="Menu.font"/>
                 </properties>
               </component>
               <component id="4c718" class="javax.swing.JTextField" binding="rutaMP3">
@@ -78,6 +79,7 @@
                 </constraints>
                 <properties>
                   <editable value="false"/>
+                  <font swing-font="Menu.font"/>
                 </properties>
               </component>
             </children>
