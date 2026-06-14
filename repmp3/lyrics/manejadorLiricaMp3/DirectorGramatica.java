@@ -48,7 +48,7 @@ public class DirectorGramatica extends DepthFirstAdapter {
         int centesimas = Integer.parseInt(tiempo_tag.substring(7, 9));
         long totalMilisegundos = (minutos * 60000L) + (segundos * 1000L) + (centesimas * 10L);
 
-        long LATENCIA_LIRICAS = 300L;
+        long LATENCIA_LIRICAS = 650L;
 
         System.out.println("DEBUG LATENCIA LIRICAS: " + totalMilisegundos);
 
