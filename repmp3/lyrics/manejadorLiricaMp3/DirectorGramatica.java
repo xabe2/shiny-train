@@ -12,9 +12,6 @@ public class DirectorGramatica extends DepthFirstAdapter {
     private String titulo =  "Desconocido";
     private String album = "Desconocido";
 
-    private final long LATENCIA_LIRICAS = 600L; //LAS LIRICAS APARECEN CON UN DESFASE, HAY QUE IR PROBANDO MANUAL ESTE VALOR,
-    // SOLO MODIFICAR SI SABES QUE PONERLE!
-
     @Override
     public void inAArMetaTag(AArMetaTag node) {
         String artista_crudo = node.getTagArtista().getText();
@@ -36,8 +33,6 @@ public class DirectorGramatica extends DepthFirstAdapter {
 
     @Override
     public void inAOtroMetaTag(AOtroMetaTag node) {
-        //todo Estaba pensando... en atraparlos en un arraylist y solo leerlos usando un foreach en un Jtextpane plano!. PROBAR DESPUES!
-
         String tagCrudo = node.getTagOtro().getText();
         String tagLimpio = tagCrudo.substring(1, tagCrudo.length() - 1).trim();
         otrosMetadatos.add(tagLimpio);
@@ -45,20 +40,16 @@ public class DirectorGramatica extends DepthFirstAdapter {
 
     @Override
     public void inAConTextoLinea(AConTextoLinea node) {
-
-        String tag = node.getTiempoTag().getText();
+        String tiempo_tag = node.getTiempoTag().getText();
         String letra = node.getTextoLirica().getText();
 
-        int minutos = Integer.parseInt(tag.substring(1, 3));
-        int segundos = Integer.parseInt(tag.substring(4, 6));
-        int centesimas = Integer.parseInt(tag.substring(7, 9));
-
+        int minutos = Integer.parseInt(tiempo_tag.substring(1, 3));
+        int segundos = Integer.parseInt(tiempo_tag.substring(4, 6));
+        int centesimas = Integer.parseInt(tiempo_tag.substring(7, 9));
         long totalMilisegundos = (minutos * 60000L) + (segundos * 1000L) + (centesimas * 10L);
 
-        //System.out.println("Milisegundos: " + totalMilisegundos);
-
-        long tiempoCorregido = Math.max(0, totalMilisegundos + LATENCIA_LIRICAS); // POR SI AL RESTAR, EL TIEMPO QUEDA NEGATIVO!
-        //System.out.println("Milisegundos originales: " + totalMilisegundos + "; Corregidos: " + tiempoCorregido);
+        long LATENCIA_LIRICAS = 600L;
+        long tiempoCorregido = Math.max(0, totalMilisegundos + LATENCIA_LIRICAS);
         bibliotecaLiricas.add(new ArchLirica(tiempoCorregido,letra.trim()));
     }
 

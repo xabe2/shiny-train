@@ -1,20 +1,9 @@
-/* -*- jde -*- ASTPrinter.java.in */
 package lyrics.debug;
 
 import java.util.*;
 import lyrics.sablecc.analysis.*;
 import lyrics.sablecc.node.*;
 
-/**
- * Text display of the AST, with (optionally) color output.
- *
- * To print the AST we do a reverse depth first traversal. We do this
- * because it is easier to know which element is the last child in any
- * node. This makes it easier to do nice indenting.
- *
- * @author Roger Keays <rogerk@ieee.org>
- * 7/9/2001
- */
 public class ASTPrinter extends ReversedDepthFirstAdapter
 {
 	

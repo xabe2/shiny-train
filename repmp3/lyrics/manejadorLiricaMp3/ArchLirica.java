@@ -1,6 +1,7 @@
 package lyrics.manejadorLiricaMp3;
 
 public class ArchLirica {
+
     private long tiempoMilisegundo;
     private String texto;
 
