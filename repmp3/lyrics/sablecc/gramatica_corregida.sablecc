@@ -5,12 +5,12 @@ Helpers
     letra               = [['a' .. 'z'] + ['A' .. 'Z']];
     espacio             = ' ';
     bom                 = 65279; // ESTO ES PORQUE ARCHIVOS CODIFICADOS COMO UTF8 BOM FALLAN!
-    simbolos            = [0..127]; // Representa CUALQUIER caracter, incluye simbolos
+    simbolos            = [0..0xffff]; // MODIFICADO: Representa TODO el espectro Unicode (osea que incluye ñ tildes caracteres japoneses y otros)
     cambio_linea        = 13; // Esta en ascii y simboliza \r
     alimentador_linea   = 10;
     text_char           = [[simbolos - ']'] - [cambio_linea + alimentador_linea]];
     line_char           = [simbolos - [['[' + ']'] + [cambio_linea + alimentador_linea]]];
-	
+
 Tokens
     blanco          = ' '+;
     fdlin           = (cambio_linea alimentador_linea) | cambio_linea | alimentador_linea; // Fin De Linea
@@ -21,12 +21,12 @@ Tokens
     tag_otro        = '[' letra+ ':' text_char* ']';
     texto_lirica    = line_char+;
     marca_bom       = bom;
-	
+
 Ignored Tokens
     blanco, fdlin, marca_bom;
-	
+
 Productions
- 
+
     archivo =
         {con_meta}  metadata lineas      |
         {sin_meta}  lineas               ;

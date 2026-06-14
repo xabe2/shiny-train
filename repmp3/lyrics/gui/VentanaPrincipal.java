@@ -16,6 +16,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.event.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -142,7 +143,7 @@ public class VentanaPrincipal extends JFrame {
             detenerReproduccion();
             LiricasTextPane.setText("   ");
 
-            Parser p = new Parser(new Lexer(new PushbackReader(new BufferedReader(new FileReader(archLRC)))));
+            Parser p = new Parser(new Lexer(new PushbackReader(new BufferedReader(new InputStreamReader(new FileInputStream(archLRC), StandardCharsets.UTF_8)))));
             Start tree = p.parse();
 
             DirectorGramatica director = new DirectorGramatica();
@@ -170,6 +171,7 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    // Este es el timer, programa una lista de tareas por hacer, no lo hace en tiempo real.
     private void programarLetras(ArrayList<ArchLirica> repositorio) {
         timerPrincipal = new Timer();
 
@@ -202,7 +204,7 @@ public class VentanaPrincipal extends JFrame {
         dispose();
     }
 
-    // Funciones auxiliares
+    // Funciones auxiliares, para no tener un codigo juntito tan largo
 
     private String armarMetadatos(String artista, String titulo, String album, ArrayList<String> otros) {
         StringBuilder texto = new StringBuilder();
@@ -211,7 +213,7 @@ public class VentanaPrincipal extends JFrame {
         texto.append("Artista: ").append(artista).append("\n");
         texto.append("Álbum: ").append(album).append("\n");
 
-        texto.append("\n...:: Información Adicional ::...\n");
+        texto.append("\nInformación Adicional\n");
 
         if (otros.isEmpty()) {
             texto.append("No hay metadatos adicionales!");
